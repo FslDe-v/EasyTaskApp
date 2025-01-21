@@ -55,7 +55,6 @@ export class TasksComponent {
   //     })
   // );
 }
-
 export const resolveUserTasks: ResolveFn<Task[]> = (
   activatedRouteSnapshot,
   routerState

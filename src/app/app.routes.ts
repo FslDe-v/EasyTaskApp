@@ -6,7 +6,6 @@ import {
   resolveUserName,
 } from './users/user-tasks/user-tasks.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { routes as userRoutes } from './users/uers.routes';
 import { inject } from '@angular/core';
 
 const dummyCanMatch: CanMatchFn = (route, segments) => {
@@ -18,6 +17,7 @@ const dummyCanMatch: CanMatchFn = (route, segments) => {
 
 export const routes: Routes = [
   {
+    // Initial page route
     path: '',
     component: NoTaskComponent,
     title: 'No task selected here', // Set static title
@@ -26,7 +26,8 @@ export const routes: Routes = [
   {
     path: 'users/:userId', // domain/user/userId
     component: UserTasksComponent,
-    children: userRoutes,
+    // Lazy load the entire groupe
+    loadChildren: () => import('./users/uers.routes').then((mod) => mod.routes),
     //canMatch: [dummyCanMatch], // Control access (Route Guard) to a route and its chilren
     data: {
       // You shoul enable  withComponentInputBinding()
